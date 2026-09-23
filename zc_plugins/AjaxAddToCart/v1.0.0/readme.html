@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Add To Cart - Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f9f9f9;
+        }
+
+        main {
+            background-color: #fff;
+            padding: 2rem 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            position: relative;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5em;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f7fa;
+            font-weight: 600;
+        }
+
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 1.5em 0;
+            padding: 0.5em 1em;
+            background-color: #f4f8fa;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #27ae60;
+            border-radius: 12px;
+        }
+
+        .back-to-top {
+            font-size: 14px;
+            font-weight: normal;
+            float: right;
+            text-decoration: none;
+            color: #3498db;
+            margin-top: 6px;
+        }
+
+        .back-to-top:hover {
+            text-decoration: underline;
+        }
+        .meta-header {
+            display: flex;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 1.5em 0;
+        }
+        .meta-left {
+            flex: 0 0 35%;
+            padding: 15px;
+            border-right: 1px solid #ddd;
+        }
+        .meta-right {
+            flex: 1;
+            padding: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        @media (max-width: 768px) {
+            .meta-header {
+                flex-direction: column;
+            }
+            .meta-left {
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<main id="top">
+    <h1>Ajax Add To Cart</h1>
+
+    <div class="meta-header">
+        <div class="meta-left">
+            <strong>Version:</strong> 1.0.0<br>
+            <strong>Platform:</strong> Zen Cart 2.x<br>
+            <strong>Architecture:</strong> Encapsulated Plugin, Observer-Based<br>
+            <strong>Author:</strong> Leonard, ZenExpert<br>
+            <strong>Contact:</strong> <a href="mailto:info@zenexpert.com">e-mail me</a> (considered as quote requests)
+        </div>
+        <div class="meta-right">
+            Thank you for downloading this plugin. Please note that this plugin is installed and used at your own risk. If you are unsure of how to complete the installation procedure documented below, please seek support in the official Forum section (keep in mind Forums are public and work on voluntary basis) or contact me for paid assistance. ZenExpert takes no responsibility for problems related to the installation or use of this plugin.
+        </div>
+    </div>
+
+    <p>Ajax Add To Cart is a fully encapsulated, observer-based plugin for Zen Cart that intercepts standard product additions and performs them asynchronously. This prevents the standard page reload, vastly improving user experience. It elegantly handles everything from single product additions to complex multiple-product quantity boxes and checkboxes.</p>
+
+    <h2>Table of Contents</h2>
+    <ul>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#template-compatibility">Template Compatibility</a></li>
+        <li><a href="#admin-options">Admin-Configured Options</a></li>
+        <li><a href="#features-usage">Features &amp; Usage</a>
+            <ul>
+                <li><a href="#modal-popup">Interactive Modal Popup</a></li>
+                <li><a href="#dynamic-sidebox">Dynamic Sidebox Updates</a></li>
+                <li><a href="#quantity-updates">In-Cart Quantity Updates</a></li>
+                <li><a href="#developer-integrations">Developer Template Integrations</a></li>
+            </ul>
+        </li>
+        <li><a href="#support">Support</a></li>
+        <li><a href="#license">License</a></li>
+    </ul>
+
+    <h2 id="installation">Installation <a href="#top" class="back-to-top">&uarr; top</a></h2>
+    <p>This plugin uses strict encapsulation and reference-based observers, meaning it requires zero core file modifications.</p>
+    <ol>
+        <li>Backup your database.</li>
+        <li>Upload the plugin folder to your store's <code>zc_plugins</code> directory.</li>
+        <li>Navigate to your Zen Cart Admin and go to <strong>Plugins &gt; Plugin Manager</strong>.</li>
+        <li>Locate Ajax Add To Cart and click <strong>Install</strong>. The necessary database configurations will automatically be installed.</li>
+        <li>Configure the plugin parameters via the newly generated menu under <strong>Configuration &gt; Ajax Add To Cart</strong>.</li>
+    </ol>
+
+    <h2 id="template-compatibility">Template Compatibility <a href="#top" class="back-to-top">&uarr; top</a></h2>
+    <p>This plugin is highly adaptable and fundamentally template-agnostic. It has been rigorously tested and confirmed fully compatible with standard Zen Cart templates, including <strong>Responsive Classic</strong> and <strong>ZCA Bootstrap</strong>.</p>
+    <p>The plugin dynamically injects its own cross-browser compatible DOM elements (avoiding dependencies on external modal libraries) and includes CSS that can be effortlessly overridden by simply placing a custom <code>ajax_add_to_cart.css</code> file into your active template's CSS folder.</p>
+
+    <h2 id="admin-options">Admin-Configured Options <a href="#top" class="back-to-top">&uarr; top</a></h2>
+    <p>Once installed, you can precisely control the plugin's frontend behavior via the admin configuration panel without touching any code:</p>
+    <ul>
+        <li><strong>Enable Ajax Add To Cart:</strong> A master switch to enable or disable the Ajax Add To Cart functionality globally.</li>
+        <li><strong>Form Selector:</strong> Define the jQuery selector used to target add-to-cart forms (default targets standard product, buy now, and multiple-product forms).</li>
+        <li><strong>Button Selector:</strong> Define the jQuery selector for the submit buttons inside the targeted forms.</li>
+        <li><strong>Link Selector:</strong> Define the jQuery selector used to intercept direct "Buy Now" links.</li>
+        <li><strong>Cart Count Selector:</strong> The jQuery selector for on-page elements displaying the total cart item count.</li>
+        <li><strong>Cart Total Selector:</strong> The jQuery selector for on-page elements displaying the total financial cart amount.</li>
+        <li><strong>Sidebox Selector:</strong> The jQuery selector for the shopping cart sidebox wrapper (defaults to <code>#shopping-cart, #shoppingcart</code>).</li>
+        <li><strong>In-Cart Selector:</strong> The jQuery selector for the "Quantity in Cart" element displayed natively on product info pages (defaults to <code>.cartInCart, #cartAdd p</code>).</li>
+        <li><strong>In-Cart Parent:</strong> The jQuery selector for the parent wrapper where the Quantity in Cart element should be injected if it does not already exist on the page.</li>
+    </ul>
+
+    <h2 id="features-usage">Features &amp; Usage <a href="#top" class="back-to-top">&uarr; top</a></h2>
+
+    <h3 id="modal-popup">Interactive Modal Popup</h3>
+    <p>Upon a successful cart addition, the native page redirect is halted and a clean, responsive modal popup is displayed to the user.</p>
+    <ul>
+        <li>Parses exact product names (including multiple products added simultaneously) into a bolded success message.</li>
+        <li>Displays real-time cart subtotal and item count directly inside the modal.</li>
+        <li>Provides frictionless "Continue Shopping" and "View Cart" action buttons.</li>
+        <li>Automatically falls back to a graceful native form submission if the product form requires a file upload.</li>
+    </ul>
+
+    <h3 id="dynamic-sidebox">Dynamic Sidebox Updates</h3>
+    <p>The plugin natively renders Zen Cart's <code>shopping_cart.php</code> sidebox module in the background and returns the updated HTML.</p>
+    <ul>
+        <li>Queries the <code>layout_boxes</code> database table to determine if the sidebox is assigned to the left or right column.</li>
+        <li>Retrieves the exact sort order of all active sideboxes in the assigned column.</li>
+        <li>Intelligently injects the sidebox HTML into the correct DOM position relative to its neighboring sideboxes, even if the template previously hid the column because the cart was empty.</li>
+    </ul>
+
+    <h3 id="quantity-updates">In-Cart Quantity Updates</h3>
+    <p>The plugin completely replicates Zen Cart's native logic for displaying a customer's active product quantity on the <code>product_info</code> page.</p>
+    <ul>
+        <li>Checks the <code>zen_get_show_product_switch()</code> configuration to ensure the quantity text should be displayed.</li>
+        <li>Sums up all attribute variations natively using the cart's <code>in_cart_mixed()</code> method.</li>
+        <li>Gracefully replaces the existing quantity text on the page, or securely prepends it to the configured parent container if it doesn't currently exist.</li>
+    </ul>
+
+    <h3 id="developer-integrations">Developer Template Integrations</h3>
+    <p>If you are building custom templates or complex sliding mini-carts, the plugin provides explicit hooks to integrate your own UI elements seamlessly:</p>
+    <ul>
+        <li><strong>PHP Interception:</strong> The observer triggers the <code>NOTIFY_AJAX_ADD_TO_CART_FILTER_RESPONSE</code> hook immediately before JSON encoding. This allows secondary add-on plugins to inject custom HTML payloads directly into the response array.</li>
+        <li><strong>JavaScript Broadcasting:</strong> The <code>handleAjaxResponse</code> function fires an <code>ajaxAddToCartSuccess</code> document event, broadcasting the JSON response and the originating form data. This allows any custom template script to intercept the event and manipulate the DOM.</li>
+        <li><strong>Modal Suppression:</strong> Custom template scripts can disable the default modal popup entirely by setting <code>response.disableModal</code> to true within the broadcasted event.</li>
+    </ul>
+
+    <h2 id="support">Support <a href="#top" class="back-to-top">&uarr; top</a></h2>
+    <p>This plugin comes with limited support. There is an official support thread on the public Forum, but keep in mind that support is on voluntary basis so you might have to wait a while before your question gets answered.</p>
+    <p>Please note that I don't provide support for this module via email for free. Any private support is considered commercial work and will be billed at my standard hourly rate.</p>
+
+    <h2 id="license">License <a href="#top" class="back-to-top">&uarr; top</a></h2>
+    <p>The plugin is licensed under GPL.</p>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 2rem 0;">
+    <p>Once again, thank you for downloading this file. As I said at the beginning, I'd be glad to help you if you have any questions relating to this plugin. No guarantees, but I'll do my best to assist.</p>
+
+    <p>Regards,<br>Leonard</p>
+
+</main>
+
+</body>
+</html>
