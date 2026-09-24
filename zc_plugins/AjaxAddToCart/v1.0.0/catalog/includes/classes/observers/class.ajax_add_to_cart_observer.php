@@ -191,7 +191,7 @@ class ajax_add_to_cart_observer extends base
 
     private function renderShoppingCartSidebox(): array
     {
-        global $db, $template, $currencies, $cart, $current_page_base, $request_type, $PHP_SELF, $language_page_directory, $template_dir;
+        global $db, $template, $currencies, $cart, $current_page_base, $request_type, $PHP_SELF, $language_page_directory, $template_dir, $tplSetting;
 
         $sideboxHtml = '';
         $sideboxColumn = 'left';
