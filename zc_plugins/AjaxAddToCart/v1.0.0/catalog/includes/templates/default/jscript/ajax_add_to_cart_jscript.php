@@ -7,15 +7,15 @@
     if (typeof jQuery !== 'undefined') {
         (function($) {
             $(function() {
-                var formSelector = "<?php echo addslashes(AJAX_ADD_TO_CART_FORM_SELECTOR); ?>";
-                var btnSelector = "<?php echo addslashes(AJAX_ADD_TO_CART_BUTTON_SELECTOR); ?>";
-                var linkSelector = "<?php echo addslashes(AJAX_ADD_TO_CART_LINK_SELECTOR); ?>";
-                var countSelector = "<?php echo addslashes(AJAX_ADD_TO_CART_CART_COUNT_SELECTOR); ?>";
-                var totalSelector = "<?php echo addslashes(AJAX_ADD_TO_CART_CART_TOTAL_SELECTOR); ?>";
-                var sideboxSelector = "<?php echo defined('AJAX_ADD_TO_CART_SIDEBOX_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_SIDEBOX_SELECTOR) : '#shopping-cart, #shoppingcart'; ?>";
-                var inCartSelector = "<?php echo defined('AJAX_ADD_TO_CART_IN_CART_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_IN_CART_SELECTOR) : '.cartInCart'; ?>";
-                var inCartParent = "<?php echo defined('AJAX_ADD_TO_CART_IN_CART_PARENT') ? addslashes(AJAX_ADD_TO_CART_IN_CART_PARENT) : '#cartAdd'; ?>";
-                var defaultSuccessMsg = "<?php echo addslashes(AJAX_ADD_TO_CART_SUCCESS_MESSAGE); ?>";
+                var formSelector = "<?= addslashes(AJAX_ADD_TO_CART_FORM_SELECTOR); ?>";
+                var btnSelector = "<?= addslashes(AJAX_ADD_TO_CART_BUTTON_SELECTOR); ?>";
+                var linkSelector = "<?= addslashes(AJAX_ADD_TO_CART_LINK_SELECTOR); ?>";
+                var countSelector = "<?= addslashes(AJAX_ADD_TO_CART_CART_COUNT_SELECTOR); ?>";
+                var totalSelector = "<?= addslashes(AJAX_ADD_TO_CART_CART_TOTAL_SELECTOR); ?>";
+                var sideboxSelector = "<?= defined('AJAX_ADD_TO_CART_SIDEBOX_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_SIDEBOX_SELECTOR) : '#shopping-cart, #shoppingcart'; ?>";
+                var inCartSelector = "<?= defined('AJAX_ADD_TO_CART_IN_CART_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_IN_CART_SELECTOR) : '.cartInCart'; ?>";
+                var inCartParent = "<?= defined('AJAX_ADD_TO_CART_IN_CART_PARENT') ? addslashes(AJAX_ADD_TO_CART_IN_CART_PARENT) : '#cartAdd'; ?>";
+                var defaultSuccessMsg = "<?= addslashes(AJAX_ADD_TO_CART_SUCCESS_MESSAGE); ?>";
 
                 if ($('#ajaxAddToCartModal').length === 0) {
                     $('body').append(
@@ -29,7 +29,7 @@
                         '</div>' +
                         '<div class="aatc-actions">' +
                         '<button id="aatc-close" class="aatc-btn aatc-btn-secondary"><?= JSCRIPT_AJAX_CART_CONTINUE_SHOPPING ?></button>' +
-                        '<a href="<?php echo zen_href_link(FILENAME_SHOPPING_CART); ?>" id="aatc-checkout" class="aatc-btn aatc-btn-primary"><?= JSCRIPT_AJAX_CART_VIEW_CART ?></a>' +
+                        '<a href="<?= zen_href_link(FILENAME_SHOPPING_CART); ?>" id="aatc-checkout" class="aatc-btn aatc-btn-primary"><?= JSCRIPT_AJAX_CART_VIEW_CART ?></a>' +
                         '</div>' +
                         '</div>' +
                         '</div>'
