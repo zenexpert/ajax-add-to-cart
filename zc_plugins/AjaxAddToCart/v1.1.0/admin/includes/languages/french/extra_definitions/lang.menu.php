@@ -7,7 +7,7 @@ $define = [
     'ADMIN_PLUGIN_MANAGER_DESCRIPTION_FOR_AJAXADDTOCART' => 'Permet d’ajouter des produits au panier via AJAX sans recharger la page. Configurable depuis l’administration.' .
     '<div class="buttons my-2">' .
     '<a class="btn btn-primary btn-sm" href="' . DIR_WS_CATALOG . 'zc_plugins/AjaxAddToCart/' . $installedPlugins['AjaxAddToCart']['version'] . '/readme.html " target="_blank"><i class="fa fa-book"></i> Lisez-moi</a> ' .
-    '<a class="btn btn-info btn-sm" href="https://github.com/zenexpert/ajax-add-to-cart" target="_blank"><i class="fa fa-github-square"></i> GitHub</a> ' .
+    '<a class="btn btn-info btn-sm" href="https://github.com/zenexpert/ajax-add-to-cart" target="_blank"><i class="fa-solid fa-code-branch"></i> GitHub</a> ' .
     '<a class="btn btn-success btn-sm" href="" target="_blank"><i class="fa fa-comments"></i> Forum</a>' .
     '</div>',
 // AjaxAddToCart - configuration
