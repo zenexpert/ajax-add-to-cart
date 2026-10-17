@@ -7,7 +7,7 @@ $define = [
     'ADMIN_PLUGIN_MANAGER_DESCRIPTION_FOR_AJAXADDTOCART' => 'ページを再読み込みすることなく、AJAXを使用して商品をカートに追加できます。管理画面から設定可能です。' .
     '<div class="buttons my-2">' .
     '<a class="btn btn-primary btn-sm" href="' . DIR_WS_CATALOG . 'zc_plugins/AjaxAddToCart/' . $installedPlugins['AjaxAddToCart']['version'] . '/readme.html " target="_blank"><i class="fa fa-book"></i> はじめにお読みください</a> ' .
-    '<a class="btn btn-info btn-sm" href="https://github.com/zenexpert/ajax-add-to-cart" target="_blank"><i class="fa fa-github"></i> GitHub</a> ' .
+    '<a class="btn btn-info btn-sm" href="https://github.com/zenexpert/ajax-add-to-cart" target="_blank"><i class="fa-solid fa-code-branch"></i> GitHub</a> ' .
     '<a class="btn btn-success btn-sm" href="" target="_blank"><i class="fa fa-comments"></i> フォーラム</a>' .
     '</div>',
 // AjaxAddToCart - configuration
