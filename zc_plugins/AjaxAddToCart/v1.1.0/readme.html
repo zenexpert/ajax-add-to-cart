@@ -158,7 +158,7 @@
 
     <div class="meta-header">
         <div class="meta-left">
-            <strong>Version:</strong> 1.0.0<br>
+            <strong>Version:</strong> 1.1.0<br>
             <strong>Platform:</strong> Zen Cart 2.x<br>
             <strong>Architecture:</strong> Encapsulated Plugin, Observer-Based<br>
             <strong>Author:</strong> Leonard, ZenExpert<br>
@@ -180,6 +180,7 @@
             <ul>
                 <li><a href="#modal-popup">Interactive Modal Popup</a></li>
                 <li><a href="#dynamic-sidebox">Dynamic Sidebox Updates</a></li>
+                <li><a href="#header-links">Header Cart & Checkout Links</a></li>
                 <li><a href="#quantity-updates">In-Cart Quantity Updates</a></li>
                 <li><a href="#developer-integrations">Developer Template Integrations</a></li>
             </ul>
@@ -214,6 +215,9 @@
         <li><strong>Sidebox Selector:</strong> The jQuery selector for the shopping cart sidebox wrapper (defaults to <code>#shopping-cart, #shoppingcart</code>).</li>
         <li><strong>In-Cart Selector:</strong> The jQuery selector for the "Quantity in Cart" element displayed natively on product info pages (defaults to <code>.cartInCart, #cartAdd p</code>).</li>
         <li><strong>In-Cart Parent:</strong> The jQuery selector for the parent wrapper where the Quantity in Cart element should be injected if it does not already exist on the page.</li>
+        <li><strong>Inject Header Cart Links:</strong> When enabled, Shopping Cart and Checkout links taken from the active template's <code>tpl_header.php</code> are injected after an Ajax add if the empty-cart header omitted them.</li>
+        <li><strong>Header Nav Selector:</strong> The jQuery selector for the header navigation list where those links should be inserted (defaults to <code>#navMain ul, ul.navbar-nav</code>).</li>
+        <li><strong>Header Cart Link Selector:</strong> The jQuery selector used to detect whether the header already contains a Shopping Cart link. If a match is found, the plugin does nothing.</li>
     </ul>
 
     <h2 id="features-usage">Features &amp; Usage <a href="#top" class="back-to-top">&uarr; top</a></h2>
@@ -233,6 +237,15 @@
         <li>Queries the <code>layout_boxes</code> database table to determine if the sidebox is assigned to the left or right column.</li>
         <li>Retrieves the exact sort order of all active sideboxes in the assigned column.</li>
         <li>Intelligently injects the sidebox HTML into the correct DOM position relative to its neighboring sideboxes, even if the template previously hid the column because the cart was empty.</li>
+    </ul>
+
+    <h3 id="header-links">Header Cart & Checkout Links</h3>
+    <p>Most Zen Cart templates hide the header Shopping Cart and Checkout links while the cart is empty. After an Ajax add those links would otherwise stay missing until a full page reload.</p>
+    <ul>
+        <li>Reads the store's <strong>active</strong> <code>tpl_header.php</code> (the same file the template is already using, including overrides) and extracts the cart-gated markup — it does not invent its own links.</li>
+        <li>Chooses the matching mobile / tablet / desktop fragment when a responsive header contains more than one copy of the links.</li>
+        <li>Injects that native HTML into the header navigation only when the links are not already in the DOM.</li>
+        <li>After a full page reload the template renders the links itself, and the plugin steps aside.</li>
     </ul>
 
     <h3 id="quantity-updates">In-Cart Quantity Updates</h3>

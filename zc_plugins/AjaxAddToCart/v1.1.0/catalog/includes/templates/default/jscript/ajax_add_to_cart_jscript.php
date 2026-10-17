@@ -7,15 +7,17 @@
     if (typeof jQuery !== 'undefined') {
         (function($) {
             $(function() {
-                var formSelector = "<?= addslashes(AJAX_ADD_TO_CART_FORM_SELECTOR); ?>";
-                var btnSelector = "<?= addslashes(AJAX_ADD_TO_CART_BUTTON_SELECTOR); ?>";
-                var linkSelector = "<?= addslashes(AJAX_ADD_TO_CART_LINK_SELECTOR); ?>";
-                var countSelector = "<?= addslashes(AJAX_ADD_TO_CART_CART_COUNT_SELECTOR); ?>";
-                var totalSelector = "<?= addslashes(AJAX_ADD_TO_CART_CART_TOTAL_SELECTOR); ?>";
-                var sideboxSelector = "<?= defined('AJAX_ADD_TO_CART_SIDEBOX_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_SIDEBOX_SELECTOR) : '#shopping-cart, #shoppingcart'; ?>";
-                var inCartSelector = "<?= defined('AJAX_ADD_TO_CART_IN_CART_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_IN_CART_SELECTOR) : '.cartInCart'; ?>";
-                var inCartParent = "<?= defined('AJAX_ADD_TO_CART_IN_CART_PARENT') ? addslashes(AJAX_ADD_TO_CART_IN_CART_PARENT) : '#cartAdd'; ?>";
-                var defaultSuccessMsg = "<?= addslashes(AJAX_ADD_TO_CART_SUCCESS_MESSAGE); ?>";
+                var formSelector = "<?= addslashes(AJAX_ADD_TO_CART_FORM_SELECTOR) ?>";
+                var btnSelector = "<?= addslashes(AJAX_ADD_TO_CART_BUTTON_SELECTOR) ?>";
+                var linkSelector = "<?= addslashes(AJAX_ADD_TO_CART_LINK_SELECTOR) ?>";
+                var countSelector = "<?= addslashes(AJAX_ADD_TO_CART_CART_COUNT_SELECTOR) ?>";
+                var totalSelector = "<?= addslashes(AJAX_ADD_TO_CART_CART_TOTAL_SELECTOR) ?>";
+                var sideboxSelector = "<?= defined('AJAX_ADD_TO_CART_SIDEBOX_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_SIDEBOX_SELECTOR) : '#shopping-cart, #shoppingcart' ?>";
+                var inCartSelector = "<?= defined('AJAX_ADD_TO_CART_IN_CART_SELECTOR') ? addslashes(AJAX_ADD_TO_CART_IN_CART_SELECTOR) : '.cartInCart' ?>";
+                var inCartParent = "<?= defined('AJAX_ADD_TO_CART_IN_CART_PARENT') ? addslashes(AJAX_ADD_TO_CART_IN_CART_PARENT) : '#cartAdd' ?>";
+                var headerNavSelector = <?= json_encode(defined('AJAX_ADD_TO_CART_HEADER_NAV_SELECTOR') ? AJAX_ADD_TO_CART_HEADER_NAV_SELECTOR : '#navMain ul, ul.navbar-nav') ?>;
+                var headerCartSelector = <?= json_encode(defined('AJAX_ADD_TO_CART_HEADER_CART_SELECTOR') ? AJAX_ADD_TO_CART_HEADER_CART_SELECTOR : 'a[href*="shopping_cart"], a.navCartContentsIndicator') ?>;
+                var defaultSuccessMsg = "<?= addslashes(AJAX_ADD_TO_CART_SUCCESS_MESSAGE) ?>";
 
                 if ($('#ajaxAddToCartModal').length === 0) {
                     $('body').append(
@@ -29,7 +31,7 @@
                         '</div>' +
                         '<div class="aatc-actions">' +
                         '<button id="aatc-close" class="aatc-btn aatc-btn-secondary"><?= JSCRIPT_AJAX_CART_CONTINUE_SHOPPING ?></button>' +
-                        '<a href="<?= zen_href_link(FILENAME_SHOPPING_CART); ?>" id="aatc-checkout" class="aatc-btn aatc-btn-primary"><?= JSCRIPT_AJAX_CART_VIEW_CART ?></a>' +
+                        '<a href="<?= zen_href_link(FILENAME_SHOPPING_CART) ?>" id="aatc-checkout" class="aatc-btn aatc-btn-primary"><?= JSCRIPT_AJAX_CART_VIEW_CART ?></a>' +
                         '</div>' +
                         '</div>' +
                         '</div>'
@@ -40,6 +42,48 @@
                             $('#ajaxAddToCartModal').fadeOut('fast');
                         }
                     });
+                }
+
+                function injectHeaderCartLinks(response) {
+                    if (!response.success || !response.headerCartHtml) {
+                        return;
+                    }
+
+                    var $headerScope = $('#headerWrapper, #navMainWrapper, #navMain, header, nav.navbar, #header');
+                    if (!$headerScope.length) {
+                        $headerScope = $(document);
+                    }
+
+                    if (headerCartSelector && $headerScope.find(headerCartSelector).length) {
+                        return;
+                    }
+
+                    var $nav = $();
+                    if (headerNavSelector) {
+                        $nav = $(headerNavSelector).filter(':visible').first();
+                        if (!$nav.length) {
+                            $nav = $(headerNavSelector).first();
+                        }
+                    }
+                    if (!$nav.length) {
+                        return;
+                    }
+
+                    $nav.children('li.last').removeClass('last');
+
+                    var $insertAfter = $();
+                    $nav.children('li').each(function() {
+                        var $li = $(this);
+                        if ($li.is('#nav-home') || $li.find('#nav-home, a[href*="logoff"], a[href*="log_off"], a[href*="account"], a[href*="login"], a[href*="log_in"]').length) {
+                            $insertAfter = $li;
+                        }
+                    });
+
+                    if ($insertAfter.length) {
+                        $insertAfter.after(response.headerCartHtml);
+                    } else {
+                        $nav.append(response.headerCartHtml);
+                    }
                 }
 
                 function handleAjaxResponse(response, $form) {
@@ -104,6 +148,11 @@
                                 }
                             }
                         }
+
+                        // Inject native header Shopping Cart / Checkout links when the
+                        // empty-cart template omitted them. After a full page reload the
+                        // template renders them itself and this becomes a no-op.
+                        injectHeaderCartLinks(response);
 
                         // Update the Product Info "Quantity In Cart" text natively
                         if (response.productQtyHtml && inCartSelector !== '') {

@@ -1,0 +1,14 @@
+Ajax Add To Cart - Changelog
+
+v1.1.0
+- Inject native Shopping Cart and Checkout header links after an Ajax add when the empty-cart template omitted them
+- Extracts the markup from the active template's tpl_header.php so the injected links match Responsive Classic, ZCA Bootstrap, and custom headers
+- After a full page reload the template renders the links itself and the plugin does not inject again
+- New admin settings: Inject Header Cart Links, Header Nav Selector, Header Cart Link Selector
+- Import $tplSetting (and related storefront globals) before requiring the shopping cart sidebox, fixing an Undefined variable warning on ZCA Bootstrap during Ajax adds
+- Render extracted header snippets in memory with a PHP-token whitelist (no eval, no temp files)
+- Allowed expressions: constants, string/number literals, concatenation, zen_href_link, htmlspecialchars/htmlentities, cart count/total, currencies->format, $tplSetting
+- Unknown PHP in the snippet is skipped, not executed
+
+v1.0.0
+- Initial encapsulated observer-based release
